@@ -16,11 +16,11 @@ handoff; the orchestrator owns every other transition.
 
 ## The documentation fabric (load before you plan or build)
 
-Authority order (lower wins): **ADR > Technical-Context > business-domain-context > PRD > Roadmap > Spec > Plan.**
+Authority order (lower wins): **ADR > Technical-Context > Context.MD > PRD > Roadmap > Spec > Plan.**
 
 - **`Technical-Context.MD`** — the engineering contract every code-writing agent must respect
   (principles, secure-coding baseline, branching, and the **Testing & the ratchet** standard).
-- **`business-domain-context.md`** — the domain glossary (the project's language).
+- **`Context.MD`** — the domain glossary (the project's language).
 - **`PRD.md`** · **`Roadmap.md`** — product requirements; the ordered Feature list.
 - **`docs/adr/`** — architectural decisions (highest authority).
 - **`docs/superpowers/specs/`** · **`plans/`** — per-Feature Spec and Plan (the Plan carries
