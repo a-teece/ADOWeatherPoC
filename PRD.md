@@ -43,7 +43,7 @@ overridable), never the place being viewed. The app uses only keyless, free-tier
 21. As a user, I want a System/Light/Dark theme preference for the app's chrome, so that the app matches my OS setting by default but I can pin a choice if I prefer.
 22. As a user who has pinned a Light or Dark theme, I want that pin to persist and stop following the OS setting, so that my explicit choice sticks.
 23. As a user, when the weather service call fails or I have no network connection, I want a friendly inline status message plus a non-blocking toast, so that I understand something went wrong without technical jargon or a blocked screen.
-24. As a user facing a hard failure (not a transient one), I want a blocking dialog only in that case, so that minor hiccups don't interrupt me but serious problems are clearly flagged.
+24. ~~As a user facing a hard failure (not a transient one), I want a blocking dialog only in that case, so that minor hiccups don't interrupt me but serious problems are clearly flagged.~~ **Superseded for the Weather PoC Feature** (confirmed with the user during that Feature's Spec, 2026-07-08): every fetch failure in this PoC's scope — Open-Meteo/BigDataCloud unreachable, no network — is transient, so no hard-failure case exists to trigger this dialog. Requirement kept here, not implemented, in case a future Feature introduces a genuine hard-failure case (e.g. corrupted local persistence).
 25. As a user, I never want to see error codes, stack traces, or raw exception text, so that failures stay understandable.
 26. As a developer, I want the weather provider's raw condition codes mapped to a small canonical Condition set at a single integration edge, so that the rest of the app never depends on provider-specific vocabulary.
 27. As a developer, I want the app to use only keyless, free-tier external services, so that the installed client never has to protect an embedded secret.
@@ -68,7 +68,7 @@ overridable), never the place being viewed. The app uses only keyless, free-tier
 
 - **Persistence**: `ActiveLocationStore`, unit overrides, and the pinned theme choice are all local-device persistence (no server, no account) — consistent with the PoC having no backend and no deployed environment.
 
-- **Error handling surface**: transient failures (failed Open-Meteo call, no network) are surfaced by the Weather view-model as an inline status message plus a non-blocking toast (`CommunityToolkit.Maui`); a blocking modal is reserved for hard failures only. All user-facing copy is plain-language, with no error codes or raw exception text (Technical-Context.MD, User Feedback Approach).
+- **Error handling surface**: transient failures (failed Open-Meteo call, no network) are surfaced by the Weather view-model as an inline status message plus a non-blocking toast (`CommunityToolkit.Maui`); a blocking modal is reserved for hard failures only, but the Weather PoC Feature has none in its confirmed scope (Requirement 24 superseded for this Feature — see above), so no blocking-modal code path is implemented by it. All user-facing copy is plain-language, with no error codes or raw exception text (Technical-Context.MD, User Feedback Approach).
 
 - **Logging**: every Open-Meteo call (from both `WeatherClient` and `PlaceSearchService`) and all unhandled exceptions are logged via `Microsoft.Extensions.Logging` to a local rolling log file under `AppDataDirectory`, per Technical-Context.MD.
 
