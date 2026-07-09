@@ -46,6 +46,14 @@ keyless data source returns cleanly (5, 7, …) rather than contorting to hit ex
 each day carries the day, a high and low temperature, and a Condition label + graphic.
 _Avoid_: weekly forecast, extended forecast, 7-day forecast (the count is a target, not a promise)
 
+**Last Refreshed**:
+The timestamp of the most recent successful weather fetch (Current Conditions, Hourly Forecast,
+and Daily Forecast update together as one fetch) for the Active Location, shown to the user so
+stale data is never mistaken for live. Unaffected by a failed fetch — a failure leaves the
+previous Last Refreshed timestamp in place rather than clearing or updating it, which is what
+makes it meaningful as a staleness signal.
+_Avoid_: last updated, synced, refreshed at (use the full term)
+
 **Condition**:
 The app's own canonical weather descriptor — one of a small fixed set (Clear, Partly Cloudy,
 Cloudy, Fog, Drizzle, Rain, Snow, Sleet, Thunderstorm, Windy). The data source's raw codes are
@@ -87,6 +95,9 @@ _Avoid_: dark mode (as if binary — the default "System" state is the third opt
 - A displayed graphic is a function of **Condition × day-or-night** at the relevant time in the
   **Active Location**. **Daily Forecast** day-tiles always use the day graphic; **Current
   Conditions** and **Hourly Forecast** entries pick day/night from their actual local time.
+- **Last Refreshed** advances only on a successful fetch. A failed fetch (surfaced per the
+  Current-Conditions-area error state) leaves the prior **Last Refreshed** timestamp and the
+  last-known data on screen unchanged, so the user can judge how stale what they're looking at is.
 
 ## Example dialogue
 
