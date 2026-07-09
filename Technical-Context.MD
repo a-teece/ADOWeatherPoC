@@ -14,7 +14,9 @@ Engineering-practice contract for code-writing agents in this project. Every imp
 - **MVVM** — the app's structural pattern, via `CommunityToolkit.Mvvm` (source-generated `ObservableObject` / `RelayCommand`).
 
 ## 3rd-party tech
-- **Open-Meteo** — the weather data source. Free, no API key required; called over HTTPS for forecast/current-conditions data.
+- **Open-Meteo** — the weather data source. Free, no API key required; called over HTTPS for forecast/current-conditions data and place-name geocoding search.
+- **ip-api.com** — IP-geolocation fallback when device geolocation is unavailable (ADR-0004). Free, no API key; keyless tier is HTTP-only (its HTTPS endpoint 403s), rate-limited to 45 req/min/IP, non-commercial use only.
+- **BigDataCloud reverse-geocode-client** — names the device-geolocation leg's resolved coordinate for display (ADR-0004). Free, no API key, called over HTTPS — distinct from BigDataCloud's paid `ip-geolocation-with-timezone` product, which is not used.
 
 ## Packages in use
 **HTTP:** built-in `HttpClient` via `IHttpClientFactory` (the registered, pooled client — do not `new` up `HttpClient` per call)
