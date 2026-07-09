@@ -21,21 +21,14 @@ revisited — it cannot simply be bolted onto the client. The vendor chosen to s
 
 **Amendment (2026-07-09, during the Weather PoC Feature's doc-gauntlet fix pass).** The "single
 edge module" sentence above conflated this ADR's keyless-only decision with ADR-0002's separate
-decision (the boundary that maps provider *weather* codes to canonical Conditions). As the Feature's
-design solidified, the keyless-only decision was satisfied with **one typed edge module per external
-system** — `WeatherClient` (Open-Meteo forecast), `PlaceSearchService` (Open-Meteo geocoding), and
-`LocationResolver` (ip-api.com IP geolocation + BigDataCloud reverse-geocode) — matching the module
-boundaries already established in `PRD.md`'s Implementation Decisions. This is consistent with, not
-a breach of, this ADR's actual decision: every one of those modules calls only keyless, free-tier
-services, and none introduces a key/token/secret. The superseded text is struck through rather than
-deleted, so the original decision stays visible:
+decision (the boundary that maps provider *weather* codes to canonical Conditions). The superseded
+text is struck through rather than deleted, so the original decision stays visible:
 
 > ~~Provider access is funnelled through the single edge module (the same boundary that maps
-> provider codes to Conditions, ADR-0002).~~ **Superseded:** provider access is split across one
-> typed edge module per external system (`WeatherClient`, `PlaceSearchService`, `LocationResolver`),
-> each independently satisfying the keyless-only constraint this ADR actually decides. ADR-0002's
-> Condition-mapping edge remains a separate, narrower boundary inside `WeatherClient` alone — it was
-> never meant to describe every provider integration in the app.
+> provider codes to Conditions, ADR-0002).~~ **Superseded — see ADR-0005**, which records the actual
+> module-count decision (one typed edge module per external system) as its own ADR, since that is a
+> real architectural decision distinct from this ADR's keyless-only subject and requires a new ADR
+> under Technical-Context.MD Overriding Principle #2, not an in-place amendment here.
 
 The vendor list in `Technical-Context.MD`'s "3rd-party tech" section is updated in the same pass to
 add ip-api.com and BigDataCloud alongside Open-Meteo, per the Consequences section's existing
